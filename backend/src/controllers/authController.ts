@@ -5,7 +5,7 @@ import { generateToken } from "../utils/generateToken";
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { fullName, email, password } = req.body;
 
     const userExist = await User.findOne({ email });
     if (userExist) {
@@ -14,8 +14,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
-      firstName,
-      lastName,
+      fullName,
       email,
       password: hashedPassword,
     });
@@ -41,7 +40,7 @@ export const loginUser = async (req: Request, res: Response) => {
       return res.status(400).json({ msg: "email or password is incorrect" });
     }
     generateToken(res, userExist._id);
-    return res.status(200).json({ msg: `welcome back ${userExist.firstName}` });
+    return res.status(200).json({ msg: `welcome back ${userExist.fullName}` });
   } catch (error) {
     console.log(error);
   }
@@ -56,11 +55,10 @@ export const logoutUser = async (req: Request, res: Response) => {
 };
 
 export const getUserProfile = (req: Request, res: Response) => {
-  const { _id, firstName, lastName, email, password } = req.user; // it should be req.user soon
+  const { _id, fullName, email, password } = req.user; // it should be req.user soon
   const user = {
     _id,
-    firstName,
-    lastName,
+    fullName,
     email,
     password,
   };
@@ -72,7 +70,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
     const user = await User.findById(req.user._id);
 
     if (user) {
-      user.firstName = req.body.firstName || user.firstName;
+      user.fullName = req.body.fullName || user.fullName;
       user.email = req.body.email || user.email;
 
       if (req.body.password) {

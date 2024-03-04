@@ -2,19 +2,14 @@ import mongoose from "mongoose";
 
 export type UserType = {
   _id: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   password: string;
 };
 
 const userModel = new mongoose.Schema(
   {
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
+    fullName: {
       type: String,
       required: true,
     },
