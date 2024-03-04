@@ -1,6 +1,35 @@
+"use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Signin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const formData = { email, password };
+
+  const handleForm = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("http://localhost:4000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data);
+        return alert(data.msg);
+      }
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="py-6">
       <div className="container">
@@ -10,15 +39,22 @@ export default function Signin() {
           </Link>
         </h1>
         <div className="m-auto max-w-md">
-          <form className="mt-6 flex gap-3 flex-col shadow-md border rounded-md p-6">
+          <form
+            onSubmit={handleForm}
+            className="mt-6 flex gap-3 flex-col shadow-md border rounded-md p-6"
+          >
             <h1 className="mb-2 text-2xl font-medium">Sign in</h1>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter Your Email"
               className="border p-2 rounded outline-none"
             />
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter Your Password"
               className="border p-2 rounded outline-none"
             />
