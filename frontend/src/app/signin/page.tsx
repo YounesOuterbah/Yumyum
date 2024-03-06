@@ -22,7 +22,6 @@ export default function Signin() {
       });
       const data = await res.json();
       if (!res.ok) {
-        console.log(data);
         return alert(data.msg);
       }
       router.push("/");
