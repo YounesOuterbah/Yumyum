@@ -25,7 +25,7 @@ export default function Banner() {
           <FaMagnifyingGlass className="absolute top-1/2 -mt-2 left-2 text-blue-600" />
           <input
             type="search"
-            className="p-3 pl-8 text-black outline-none w-full rounded"
+            className="p-3 pl-8 text-black  outline-none w-full rounded"
             placeholder="Cars, drones, electronics etc"
           />
         </div>

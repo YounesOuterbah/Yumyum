@@ -1,1 +1,1 @@
-# RENTLY is Full Stack web application
+# YUMYUM is Full Stack web application

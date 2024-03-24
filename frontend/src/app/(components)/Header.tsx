@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { IoPerson } from "react-icons/io5";
+import { IoPerson, IoFastFoodSharp } from "react-icons/io5";
 
 export default function Header() {
   return (
     <div className="py-3">
       <div className="container flex items-center justify-between">
         <Link href="/" className="font-bold flex items-center text-xl">
-          <img src="/location.png" className="size-6" alt="ekrely logo" />
-          EKRYLY
+          <IoFastFoodSharp className="text-2xl" />
+          YUMYUM
         </Link>
         <ul className="flex gap-6 items-center">
           <Link
