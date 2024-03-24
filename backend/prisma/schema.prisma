@@ -16,9 +16,9 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
-  fullname String
-  email String? @unique
-  password String?
-  profilePicture String? @default("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
-  isAdmin Boolean? @default(false)
+  fullName String
+  email String @unique
+  password String
+  profilePicture String @default("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
+  isAdmin Boolean @default(false)
 }

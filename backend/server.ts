@@ -15,7 +15,7 @@ app.use(
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-// app.use("/api/auth", authRouter);
+app.use("/api/auth", authRouter);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

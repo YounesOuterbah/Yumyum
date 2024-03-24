@@ -1,6 +1,6 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { User } from "../models/User";
 import { NextFunction, Request, Response } from "express";
+import { prisma } from "../config/db";
 
 declare global {
   namespace Express {
@@ -17,7 +17,10 @@ export const protect = async (req: Request, res: Response, next: NextFunction) =
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
-      req.user = await User.findById(decoded.userID).select("-password");
+      req.user = await prisma.user.findUnique({
+        where: { id: decoded.userID },
+        select: { id: true, fullName: true, email: true },
+      });
       next();
     } catch (error) {
       return res.status(401).json({ msg: "No Authorized, Invalid Token" });
